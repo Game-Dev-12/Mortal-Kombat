@@ -176,7 +176,15 @@ function animate(){
     } else if (keys.d.pressed && player.lastKey === 'd') {
         player.velocity.x = 5
     }
-    // borders if players x plus velocity is less than zero or greater than canvas width set their x velocity to 0 
+    
+    // enemy movement
+    if (keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft') {
+        enemy.velocity.x = -5
+    } else if (keys.ArrowRight.pressed && enemy.lastKey === 'ArrowRight') {
+        enemy.velocity.x = 5
+    }
+    
+    // X-axis border
     const newA = player.position.x + player.velocity.x
     const newB = enemy.position.x + enemy.velocity.x
     
@@ -187,19 +195,31 @@ function animate(){
         player.velocity.x = 0
     }
     
-    // if ( newB > 972 || newB + enemy.width > canvas.width) {
-    //     console.log({
-    //         newB, canvasWidth: canvas.width
-    //     })
-    //     enemy.velocity.x = 0
-    // }
-
-  // enemy movement
-    if (keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft') {
-        enemy.velocity.x = -5
-    } else if (keys.ArrowRight.pressed && enemy.lastKey === 'ArrowRight') {
-        enemy.velocity.x = 5
+    if ( newB < 0 || newB + enemy.width -1 > canvas.width) {
+        console.log({
+            newB, canvasWidth: canvas.width
+        })
+        enemy.velocity.x = 0
     }
+    
+    // y-axis border
+    const newC = player.position.y + player.velocity.y
+    const newD = enemy.position.y + enemy.velocity.y
+    
+    if ( newC < 0 || newC + player.height -1 > canvas.height) {
+        console.log({
+            newA, canvasHeight: canvas.height
+        })
+        player.velocity.y = 0
+    }
+    
+    if ( newD < 0 || newD + enemy.height -1 > canvas.height) {
+        console.log({
+            newB, canvasHeight: canvas.height
+        })
+        enemy.velocity.y = 0
+    }
+
     //collision properties (player)
     if (rectangularCollision({
         rectangle1: player,
@@ -244,7 +264,7 @@ window.addEventListener('keydown', (event) => {
          case 'w':
             player.velocity.y = -10
             break
-        case ' ':
+        case 's':
             player.attack()
             break;
     
