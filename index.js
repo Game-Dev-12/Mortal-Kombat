@@ -86,7 +86,7 @@ const player = new Sprite({
 
 const enemy = new Sprite({
     position:{
-    x:400,
+    x:972,
     y:130
     },
     velocity:{
@@ -129,6 +129,37 @@ function rectangularCollision({rectangle1, rectangle2}){
         rectangle1.attackBox.position.y <= rectangle2.position.y + rectangle2.height
     )
 }
+
+function determineWinner({player, enemy, timerId}) {
+        gameOver = true
+        document.querySelector('#displayText').style.display = 'flex'
+    if (player.health === enemy.health) {
+        document.querySelector('#displayText').innerHTML = 'Tie'
+        }
+        else if (player.health > enemy.health) {
+        document.querySelector('#displayText').innerHTML = 'Player 1 wins'
+        }
+        else if (player.health < enemy.health) {
+        document.querySelector('#displayText').innerHTML = 'Player 2 wins'
+        }
+}
+let gameOver = false 
+let timer = 60
+let timerId
+function decreaseTimer() {
+    if (!gameOver){
+    if (timer > 0) {
+        timerId = setTimeout(decreaseTimer, 1000)
+        timer--
+        document.querySelector('#timer').innerHTML = timer
+    }
+    if (timer === 0 ){
+            determineWinner({player, enemy, timerId})
+        }
+    }
+}
+decreaseTimer()
+
 function animate(){
     window.requestAnimationFrame(animate)
     c.fillStyle ='black'
@@ -145,6 +176,23 @@ function animate(){
     } else if (keys.d.pressed && player.lastKey === 'd') {
         player.velocity.x = 5
     }
+    // borders if players x plus velocity is less than zero or greater than canvas width set their x velocity to 0 
+    const newA = player.position.x + player.velocity.x
+    const newB = enemy.position.x + enemy.velocity.x
+    
+    if ( newA < 0 || newA + player.width -1 > canvas.width) {
+        console.log({
+            newA, canvasWidth: canvas.width
+        })
+        player.velocity.x = 0
+    }
+    
+    // if ( newB > 972 || newB + enemy.width > canvas.width) {
+    //     console.log({
+    //         newB, canvasWidth: canvas.width
+    //     })
+    //     enemy.velocity.x = 0
+    // }
 
   // enemy movement
     if (keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft') {
@@ -173,6 +221,11 @@ function animate(){
             player.health -= 5
             document.getElementById('player-health').style.width = player.health + '%'
             console.log('enemy hit!')
+    }
+    
+    // end game based on health
+    if (enemy.health <= 0 || player.health <=0) {
+        determineWinner({player, enemy, timerId})
     }
 }
 
