@@ -6,7 +6,7 @@ canvas.height = 534
 
 c.fillRect(0, 0, canvas.width, canvas.height)
 
-const gravity = 0.7
+const gravity = 2
 
 class Sprite {
     constructor({position,velocity, color = 'red', offset}) {
@@ -159,7 +159,7 @@ function animate(){
     }) 
         && player.isAttacking){
             player.isAttacking = false
-            enemy.health -= 20
+            enemy.health -= 5
             document.getElementById('enemy-health').style.width = enemy.health + '%'
             console.log('player hit!')
     }
@@ -170,7 +170,7 @@ function animate(){
     }) 
         && enemy.isAttacking){
             enemy.isAttacking = false
-            player.health -=20
+            player.health -= 5
             document.getElementById('player-health').style.width = player.health + '%'
             console.log('enemy hit!')
     }
@@ -207,7 +207,7 @@ window.addEventListener('keydown', (event) => {
             enemy.velocity.y = -10
             break
         case 'ArrowDown':
-            enemy.isAttacking = true
+            enemy.attack()
             break
     }
 })
