@@ -9,6 +9,34 @@ c.fillRect(0, 0, canvas.width, canvas.height)
 const gravity = 2
 
 class Sprite {
+    constructor({position, imageSrc}) {
+       this.position = position
+       this.height = 150
+       this.width =  50
+       this.image = new Image()
+       this.image.src = imageSrc
+       
+    }
+    
+    draw(){
+        c.drawImage(this.image, this.position.x,this.position.y)
+    }
+    
+    update(){
+        this.draw()
+       
+    }
+    
+}
+const background = new Sprite({ //  takes position and set background image
+    position:{
+    x:0,
+    y:0
+    },
+    imageSrc:'./images/Background.png'
+   
+})
+class Fighter {
     constructor({position,velocity, color = 'red', offset}) {
        this.position = position
        this.velocity = velocity
@@ -65,8 +93,7 @@ class Sprite {
         }, 100)
     }
 }
-
-const player = new Sprite({
+const player = new Fighter({
     position:{
     x:0,
     y:0
@@ -84,7 +111,7 @@ const player = new Sprite({
 
 
 
-const enemy = new Sprite({
+const enemy = new Fighter({
     position:{
     x:972,
     y:130
@@ -164,9 +191,9 @@ function animate(){
     window.requestAnimationFrame(animate)
     c.fillStyle ='black'
     c.fillRect(0,0,canvas.width, canvas.height)
+    background.update()
     player.update()
     enemy.update()
-    
     player.velocity.x = 0
     enemy.velocity.x = 0
     
