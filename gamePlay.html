@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mortal Kombat</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <!--game-container-->
+    <div style="
+    position: relative; 
+    display:inline-block;">
+        <div style='position:absolute;
+        display:flex; 
+        align-items:center; 
+        width:100%;
+        padding:20px;'>
+            <!--player1 health-->
+            <div style="
+            position:relative; 
+            width:100%; 
+            height:40px; 
+            display:flex; 
+            justify-content:flex-end;">
+                <div style="background-color: red; 
+           height:40px; 
+           width:100%;"></div>
+                <div id="player-health" style="
+           position:absolute; 
+           background-color:aliceblue; 
+           top:0; 
+           right:0; 
+           bottom:0; 
+           width:100%;;"></div>
+            </div>
+            <!--game timer-->
+            <div id="timer" style="
+                    background-color:rgba(0, 0, 0, 0.418); 
+                    width:110px; 
+                    height:70px; 
+                    flex-shrink:0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: whitesmoke;
+
+                    ">
+                10
+            </div>
+            <!--player2 health-->
+            <div style="
+          position:relative; width:100%; 
+          height:40px;">
+                <div style="
+               background-color: red; 
+               height:40px"></div>
+
+                <div id="enemy-health" style="
+               position:absolute; 
+               background-color:aliceblue; 
+               top:0; 
+               right:0; 
+               bottom:0; 
+               left:0;"></div>
+            </div>
+        </div>
+        <div
+        id= "displayText"
+        style="
+            position: absolute; 
+            color: white; 
+            align-items: 
+            center; 
+            justify-content: center;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            display: none;
+            "
+            >Tie</div>
+        <canvas id="canvas"></canvas>
+        <script src="./index.js"></script>
+    </div>
+</body>
+
+</html>
