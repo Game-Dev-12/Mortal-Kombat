@@ -23,13 +23,10 @@ class Sprite {
     }
     
     draw(){
-        c.drawImage(
-            this.image, 
-            this.position.x,
-            this.position.y,
-            this.framesCurrent + (this.image.width / this.framesMax)
-            
-            )
+
+        c.drawImage(this.image, this.position.x,this.position.y)
+    
+
     }
     
     update(){
@@ -37,14 +34,16 @@ class Sprite {
        
     }
     
+    
 }
-const background = new Sprite({ //  takes position and set background image
+const background = new Sprite({
     position:{
     x:0,
     y:0
     },
-    imageSrc:'./images/Background.png'
+    ImageSrc:'./images.background.png'
    
+    
 })
 class Fighter extends Sprite{
     constructor({position,velocity, color = 'red', offset, imgSource, scale = 1, framesMax = 1 }) {
@@ -201,9 +200,10 @@ function animate(){
     window.requestAnimationFrame(animate)
     c.fillStyle ='black'
     c.fillRect(0,0,canvas.width, canvas.height)
-    background.update()
+    /*background.update()*/
     player.update()
     enemy.update()
+    
     player.velocity.x = 0
     enemy.velocity.x = 0
     
